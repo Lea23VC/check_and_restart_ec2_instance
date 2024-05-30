@@ -5,8 +5,8 @@ from utils.email import send_email
 
 
 def reboot_if_down(event, context):
-    instance_ids = os.environ.get("INSTANCE_IDS").split(',')
-    region = os.environ.get("AWS_REGION")
+    instance_ids = os.getenv("INSTANCE_IDS").split(',')
+    region = os.getenv("AWS_REGION")
 
     # Create EC2 client
     ec2 = boto3.client('ec2', region_name=region)
