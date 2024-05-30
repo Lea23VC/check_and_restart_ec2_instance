@@ -20,4 +20,4 @@ var/
 .serverless
 
 node_modules/
-.env*
+.env
