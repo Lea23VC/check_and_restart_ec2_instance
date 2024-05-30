@@ -1,0 +1,11 @@
+{
+  "name": "check_and_restart_ec2_instance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Lea23VC <leandro.villalobos.dx@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-python-requirements": "^6.1.0"
+  }
+}

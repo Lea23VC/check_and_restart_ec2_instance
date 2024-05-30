@@ -1,0 +1,46 @@
+
+
+service: check-and-restart-ec2-instance
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-python-requirements
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.11
+
+  region: us-east-1
+  profile: lea23vc
+  environment:
+    INSTANCE_IDS: ${env:INSTANCE_IDS}
+
+  iam:
+      role:
+        statements:
+          - Effect: "Allow"
+            Action:
+              - "ec2:DescribeInstances"
+              - "ec2:RebootInstances"
+            Resource: "*"
+          - Effect: "Allow"
+            Action:
+              - "ses:SendEmail"
+              - "ses:SendRawEmail"
+            Resource: "*"
+
+
+functions:
+  checkAndRebootEC2:
+    handler: handler.reboot_if_down
+    events:
+      - schedule:
+          rate: cron(*/5 * * * ? *)  # Executes every 5 minutes
+
+custom:
+  pythonRequirements:
+    fileName: requirements.txt
